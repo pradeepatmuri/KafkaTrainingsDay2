@@ -22,13 +22,14 @@ public class AsynchronousMessageSender {
 		
 		KafkaProducer<String,String> producer = new KafkaProducer<>(props);
 		
-		String topicName="my-topic";
+		String topicName="test-cluster-topic_repica3";
 		/*for(int i=0;i<50;i++) {
 			String key = i%10 == 0 ? "message-1": i%2 == 0 ?"message-2": "message-3";
 			ProducerRecord<String,String> record = new ProducerRecord<>(topicName,key,"This is test message --"+i);	
 			producer.send(record);
 		}*/
-		ProducerRecord<String,String> record = new ProducerRecord<>(topicName,"My Message","This is test message");
+		for(int i=0;i<50;i++) {
+		ProducerRecord<String,String> record = new ProducerRecord<>(topicName,"My Message"+i,"new test test"+i);
 		
 		producer.send(record,new Callback() {
 			@Override
@@ -40,8 +41,11 @@ public class AsynchronousMessageSender {
 				}
 			}		
 		});
+		
+		}
 		System.out.println("sent");
 		producer.close();
+		
 		
 	}
 
